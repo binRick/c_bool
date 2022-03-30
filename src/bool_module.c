@@ -1,7 +1,11 @@
 /*******************/
-#include "include/module.h"
+#include <stdio.h>
 /*******************/
-#include "module2.h"
+#include "../deps/def.h"
+#include "../deps/module.h"
+#include "../deps/require.h"
+/*******************/
+#include "bool_module.h"
 /*******************/
 #include "log/log.c"
 /*******************/
@@ -17,14 +21,14 @@ const bool bools[] = {
   NULL,
 };
 /*******************/
-module(module2) * module2;
+module(bool_module) * bool_module;
 /*******************/
 
 
 /*******************/
 void pre(void) {
   log_set_level(MODULE_LOG_LEVEL);
-  module2 = require(module2);
+  bool_module = require(bool_module);
 }
 
 
@@ -35,29 +39,29 @@ void test(void) {
 
 
   void bool_to_string(){
-    bs0 = module2->bool_to_string(b0);
-    bs1 = module2->bool_to_string(b1);
+    bs0 = bool_module->bool_to_string(b0);
+    bs1 = bool_module->bool_to_string(b1);
 
-    log_error("module2->bool_to_string(%d):%s", b0, bs0);
-    log_error("module2->bool_to_string(%d):%s", b1, bs1);
+    log_error("bool_module->bool_to_string(%d):%s", b0, bs0);
+    log_error("bool_module->bool_to_string(%d):%s", b1, bs1);
   }
 
 
   void string_to_bool(){
-    sb0 = module2->string_to_bool(s0);
-    sb1 = module2->string_to_bool(s1);
+    sb0 = bool_module->string_to_bool(s0);
+    sb1 = bool_module->string_to_bool(s1);
 
-    log_debug("module2->string_to_bool(%s):%d", s0, sb0);
-    log_debug("module2->string_to_bool(%s):%d", s1, sb1);
+    log_debug("bool_module->string_to_bool(%s):%d", s0, sb0);
+    log_debug("bool_module->string_to_bool(%s):%d", s1, sb1);
   }
 
 
   void is_bool(){
-    ib0 = module2->is_bool(s0);
-    ib1 = module2->is_bool(s1);
+    ib0 = bool_module->is_bool(s0);
+    ib1 = bool_module->is_bool(s1);
 
-    log_debug("module2->is_bool(%s):%d", s0, ib0);
-    log_debug("module2->is_bool(%s):%d", s1, ib1);
+    log_debug("bool_module->is_bool(%s):%d", s0, ib0);
+    log_debug("bool_module->is_bool(%s):%d", s1, ib1);
   }
 
   bool_to_string();
@@ -81,23 +85,11 @@ void exec(void){
 /*******************/
 void post(void) {
   log_info("bool unload>");
-  clib_module_free(module2);
+  clib_module_free(bool_module);
 }
 
 
 /*******************/
 
 
-void module_lifecycle(){
-  pre();
-  test();
-  exec();
-  post();
-}
-
-
-int main(void) {
-  module_lifecycle();
-  return(0);
-}
 /*******************/
