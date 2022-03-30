@@ -1,4 +1,5 @@
 /*******************/
+#include <stdbool.h>
 #include <stdio.h>
 /*******************/
 #include "../deps/def.h"

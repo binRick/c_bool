@@ -84,7 +84,7 @@ void exec(void){
 
 /*******************/
 void post(void) {
-  log_info("bool unload>");
+  log_debug("bool unload>");
   clib_module_free(bool_module);
 }
 

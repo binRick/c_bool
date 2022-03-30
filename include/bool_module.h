@@ -9,7 +9,9 @@
 /***********************************/
 #include "../deps/require.h"
 /***********************************/
+#ifndef MODULE_LOG_LEVEL
 #define MODULE_LOG_LEVEL    LOG_DEBUG
+#endif
 /***********************************/
 
 // `bool_module` module definition
@@ -47,26 +49,26 @@ module(private) {
 
 // private `private` module bool_to_string symbol
 static char * bool_module_private_bool_to_string(const bool b) {
-  log_info("bool_module_private_bool_to_string():%d", b);
+  log_trace("bool_module_private_bool_to_string():%d", b);
   return(c_bool_to_str(b));
 }
 
 
 static bool bool_module_private_is_bool(const char *s) {
-  log_info("bool_module_is_bool():%s", s);
+  log_trace("bool_module_is_bool():%s", s);
   return(c_is_bool(s));
 }
 
 
 static bool bool_module_private_string_to_bool(const char *s) {
-  log_info("bool_module_private_string_to_string():%s", s);
+  log_trace("bool_module_private_string_to_string():%s", s);
   return(c_str_to_bool(s));
 }
 
 
 // private `private` module enable symbol
 static int bool_module_private_enable() {
-  log_info("bool_module_private_enable()");
+  log_trace("bool_module_private_enable()");
   return(0);
 }
 
@@ -81,27 +83,27 @@ exports(private) {
 
 
 static bool bool_module_is_bool(const char *s) {
-  log_info("bool_module_is_bool(%s)", s);
+  log_trace("bool_module_is_bool(%s)", s);
   return(require(private)->is_bool(s));
 }
 
 
 static bool bool_module_string_to_bool(const char *s) {
-  log_info("bool_module_string_to_bool(%s)", s);
+  log_trace("bool_module_string_to_bool(%s)", s);
   return(require(private)->string_to_bool(s));
 }
 
 
 // private `bool_module` module bool_to_string symbol
 static char * bool_module_bool_to_string(const bool b) {
-  log_info("bool_module_bool_to_string()");
+  log_trace("bool_module_bool_to_string()");
   return(require(private)->bool_to_string(b));
 }
 
 
 // private `bool_module` module enable symbol
 static int bool_module_enable() {
-  log_info("bool_module_enable()");
+  log_trace("bool_module_enable()");
   require(bool_module)->enabled = true;
   require(private)->enable();
   return(0);
@@ -132,7 +134,7 @@ static int bool_module_init(module(bool_module) *exports) {
 
 // `bool_module` module deinitializer
 static void bool_module_deinit(module(bool_module) *exports) {
-  log_info("bool_module_deinit()");
+  log_trace("bool_module_deinit()");
   clib_module_free((module(private) *) exports->private);
 }
 
