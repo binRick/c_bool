@@ -8,11 +8,6 @@
 #include "log/log.c"
 /*******************/
 #include "src/bool_module.c"
-
-
-/*******************/
-
-
 /*******************/
 
 
@@ -26,8 +21,8 @@ void module_hook(){
   char *bs0 = cm_bool->bool_to_string(b0);
   char *bs1 = cm_bool->bool_to_string(b1);
 
-  log_info("cm_bool->bool_to_string(%d):%s", b0, bs0);
-  log_info("cm_bool->bool_to_string(%d):%s", b1, bs1);
+  log_info(">cm_bool->bool_to_string(%d):%s", b0, bs0);
+  log_info(">cm_bool->bool_to_string(%d):%s", b1, bs1);
 }
 
 

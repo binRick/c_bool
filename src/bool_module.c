@@ -20,15 +20,16 @@ const bool bools[] = {
   false,
   NULL,
 };
+
 /*******************/
-module(bool_module) * bool_module;
+module(bool_module) * cm_bool;
 /*******************/
 
 
 /*******************/
 void pre(void) {
   log_set_level(MODULE_LOG_LEVEL);
-  bool_module = require(bool_module);
+  cm_bool = require(bool_module);
 }
 
 
@@ -39,29 +40,29 @@ void test(void) {
 
 
   void bool_to_string(){
-    bs0 = bool_module->bool_to_string(b0);
-    bs1 = bool_module->bool_to_string(b1);
+    bs0 = cm_bool->bool_to_string(b0);
+    bs1 = cm_bool->bool_to_string(b1);
 
-    log_error("bool_module->bool_to_string(%d):%s", b0, bs0);
-    log_error("bool_module->bool_to_string(%d):%s", b1, bs1);
+    log_error("cm_bool->bool_to_string(%d):%s", b0, bs0);
+    log_error("cm_bool->bool_to_string(%d):%s", b1, bs1);
   }
 
 
   void string_to_bool(){
-    sb0 = bool_module->string_to_bool(s0);
-    sb1 = bool_module->string_to_bool(s1);
+    sb0 = cm_bool->string_to_bool(s0);
+    sb1 = cm_bool->string_to_bool(s1);
 
-    log_debug("bool_module->string_to_bool(%s):%d", s0, sb0);
-    log_debug("bool_module->string_to_bool(%s):%d", s1, sb1);
+    log_debug("cm_bool->string_to_bool(%s):%d", s0, sb0);
+    log_debug("cm_bool->string_to_bool(%s):%d", s1, sb1);
   }
 
 
   void is_bool(){
-    ib0 = bool_module->is_bool(s0);
-    ib1 = bool_module->is_bool(s1);
+    ib0 = cm_bool->is_bool(s0);
+    ib1 = cm_bool->is_bool(s1);
 
-    log_debug("bool_module->is_bool(%s):%d", s0, ib0);
-    log_debug("bool_module->is_bool(%s):%d", s1, ib1);
+    log_debug("cm_bool->is_bool(%s):%d", s0, ib0);
+    log_debug("cm_bool->is_bool(%s):%d", s1, ib1);
   }
 
   bool_to_string();
@@ -85,7 +86,7 @@ void exec(void){
 /*******************/
 void post(void) {
   log_debug("bool unload>");
-  clib_module_free(bool_module);
+  clib_module_free(cm_bool);
 }
 
 
