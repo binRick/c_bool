@@ -21,16 +21,24 @@ incdir = include_directories(
   '../ok',
 )
 #//***********************************************************/
-test_bool1 = executable('test_bool1', 
-  [ 
+test_bool1 = executable('test_bool1', [ 
     'src/bool.c', 
     'tests/test_bool1.c',  
   ], include_directories : [incdir], 
   dependencies : [],
 )
 #//***********************************************************/
+#//***********************************************************/
+test_bool2 = executable('test_bool2', [ 
+    'src/bool.c', 
+    'tests/test_bool2.c',  
+  ], include_directories : [incdir], 
+  dependencies : [],
+)
+#//***********************************************************/
 tests = [
   ['test bool 1', test_bool1, 'test-bool1.log'],
+  ['test bool 2', test_bool2, 'test-bool2.log'],
 ]
 #//***********************************************************/
 

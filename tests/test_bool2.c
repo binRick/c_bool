@@ -5,7 +5,7 @@
 #include "module.h"
 #include "require.h"
 /*******************/
-#include "../include/module1.h"
+#include "../include/module2.h"
 /*******************/
 #include "../../log/log.c"
 /*******************/
@@ -13,7 +13,7 @@
 /*******************/
 
 /*******************/
-module(module1) * module1;
+module(module2) * module2;
 
 
 /*******************/
@@ -22,7 +22,7 @@ module(module1) * module1;
 /*******************/
 void pre(void) {
   log_set_level(MODULE_LOG_LEVEL);
-  module1 = require(module1);
+  module2 = require(module2);
 }
 
 
@@ -31,10 +31,14 @@ void pre(void) {
 
 /*******************/
 void test(void) {
-  log_debug("module1:%d", module1);
-  log_debug("module1->state:%d", module1->state);
-  log_debug("module1->function:%d", module1->function());
-  log_debug("module1->state:%d", module1->state);
+  log_debug("module2:%d", module2);
+  log_debug("module2->enabled:%d", module2->enabled);
+  log_debug("module2->state:%d", module2->state);
+  log_debug("module2->ok:%d", module2->ok);
+  log_debug("module2->function:%d", module2->function());
+  log_debug("module2->enable():%d", module2->enable());
+  log_debug("module2->state:%d", module2->state);
+  log_debug("module2->enabled:%d", module2->enabled);
 }
 
 
@@ -52,7 +56,7 @@ void exec(void){
 
 /*******************/
 void post(void) {
-  clib_module_free(module1);
+  clib_module_free(module2);
 }
 
 

@@ -23,3 +23,6 @@ clean:
 
 install:
 	@echo Install OK
+
+tidy:
+	@./tidy.sh
