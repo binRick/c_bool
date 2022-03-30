@@ -21,6 +21,8 @@ module(module2) {
 
   int  (*function)();
   int  (*enable)();
+  int  (*string_to_bool)();
+  char * (*bool_to_string)();
 };
 
 // `module2` module prototypes
@@ -37,9 +39,28 @@ exports(module2) {
 // `private` module definition
 module(private) {
   define(private, CLIB_MODULE);
-  int (*function)();
-  int (*enable)();
+  int  (*function)();
+  int  (*enable)();
+  int  (*string_to_bool)();
+  char * (*bool_to_string)(bool);
 };
+
+
+// private `private` module bool_to_string symbol
+static char * module2_private_bool_to_string(bool b) {
+  log_info("module2_private_bool_to_string():%d", b);
+  return(c_bool_to_str(b));
+}
+
+
+static int module2_private_string_to_bool() {
+  char *s = "true";
+
+  log_info("module2_private_string_to_string():%d", s);
+  bool b = true;
+
+  return(b);
+}
 
 
 // private `private` module enable symbol
@@ -58,9 +79,26 @@ static int module2_private_function() {
 // `private` module exports
 exports(private) {
   defaults(private, CLIB_MODULE_DEFAULT),
-  .function = module2_private_function,
-  .enable   = module2_private_enable,
+  .function       = module2_private_function,
+  .enable         = module2_private_enable,
+  .bool_to_string = module2_private_bool_to_string,
+  .string_to_bool = module2_private_string_to_bool,
 };
+
+
+static int module2_string_to_bool() {
+  log_info("module2_string_to_bool()");
+  // require(module2)->string_to_bool();
+  // require(private)->string_to_bool();
+  return(true);
+}
+
+
+// private `module2` module bool_to_string symbol
+static char * module2_bool_to_string(bool b) {
+  log_info("module2_bool_to_string()");
+  return(require(private)->bool_to_string(b));
+}
 
 
 // private `module2` module enable symbol
@@ -85,11 +123,12 @@ static int module2_function() {
 // `module2` module initializer
 static int module2_init(module(module2) *exports) {
   log_info("module2_init()");
-  exports->enable   = module2_enable;
-  exports->function = module2_function;
-  exports->private  = require(private);
-  exports->state    = -1;
-  exports->ok       = -1;
+  exports->bool_to_string = module2_bool_to_string;
+  exports->enable         = module2_enable;
+  exports->function       = module2_function;
+  exports->private        = require(private);
+  exports->state          = -1;
+  exports->ok             = -1;
   if (0 != exports->private) {
     log_info("exports->private");
   }

@@ -16,7 +16,7 @@ build:
 	@test -d $(BUILD_DIR) && {  meson $(BUILD_DIR) --reconfigure; } || { meson $(BUILD_DIR); }
 
 test:
-	@meson test -C $(BUILD_DIR)
+	@meson test -C $(BUILD_DIR) --verbose
 
 clean:
 	@test -d $(BUILD_DIR) && rm -rf $(BUILD_DIR)

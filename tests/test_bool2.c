@@ -27,6 +27,11 @@ void pre(void) {
 
 
 /*******************/
+const bool *bools = {
+  true,
+  false,
+  NULL,
+};
 
 
 /*******************/
@@ -37,6 +42,20 @@ void test(void) {
   log_debug("module2->ok:%d", module2->ok);
   log_debug("module2->function:%d", module2->function());
   log_debug("module2->enable():%d", module2->enable());
+
+  char *bs = "UNKNOWN"; char *bs0 = "UNNKOWN"; char *bs1 = "UNKNOWN";
+  bool b = true, b0 = true, b1 = false;
+
+  bs0 = module2->bool_to_string(b0);
+  bs1 = module2->bool_to_string(b1);
+  log_error("module2->bool_to_string(%d):%s", b0, bs0);
+  log_error("module2->bool_to_string(%d):%s", b1, bs1);
+
+//  bool b0 = module2->string_to_bool();
+//  log_debug("module2->string_to_bool(%s):%d", bs, b0);
+
+//  log_debug("module2->bool_to_string(%d):%d", bools[0], module2->bool_to_string(bools[0]));
+
   log_debug("module2->state:%d", module2->state);
   log_debug("module2->enabled:%d", module2->enabled);
 }
