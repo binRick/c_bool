@@ -5,9 +5,11 @@ project(
 )
 #//***********************************************************/
 host_system = host_machine.system()
+
 cc = meson.get_compiler('c')
 sh = find_program('sh', required : true)
 passh = find_program('passh', required : true)
+
 #//***********************************************************/
 test_deps = []
 #//***********************************************************/
@@ -22,7 +24,9 @@ incdir = include_directories(
 test_bool1 = executable('test_bool1', 
   [ 
     'src/bool.c', 
-    'tests/test_bool1.c',  ], include_directories : [incdir], dependencies : [],
+    'tests/test_bool1.c',  
+  ], include_directories : [incdir], 
+  dependencies : [],
 )
 #//***********************************************************/
 tests = [
