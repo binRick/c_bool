@@ -3,8 +3,16 @@
     "version": "0.0.1",
     "repo": "binRick/c_bool",
     "description": "C Boolean Logic",
-    "keywords": ["c", "bool", "boolean", "module"],
+    "keywords": [
+        "c",
+        "bool",
+        "boolean",
+        "module"
+    ],
     "license": "MIT",
     "makefile": "Makefile",
-    "install": "make install"
+    "install": "make install",
+    "dependencies": {
+        "clibs/ms": "0.0.4"
+    }
 }

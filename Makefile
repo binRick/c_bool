@@ -4,10 +4,13 @@ default: all
 
 .PHONY: all
 
-all: build test
+all: clib build test
 
 .PHONY: .FORCE
 .FORCE:
+
+clib:
+	@clib install
 
 build: 
 	@test -d $(BUILD_DIR) && {  meson $(BUILD_DIR) --reconfigure; } || { meson $(BUILD_DIR); }
