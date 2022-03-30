@@ -1,21 +1,27 @@
 /*******************/
 #include <stdio.h>
 /*******************/
-#include "def.h"
-#include "module.h"
-#include "require.h"
+#include "../deps/def.h"
+#include "../deps/module.h"
+#include "../deps/require.h"
 /*******************/
-#include "../include/module2.h"
+#include "module2.h"
 /*******************/
-#include "../../log/log.c"
+#include "log/log.c"
 /*******************/
-#define MODULE_LOG_LEVEL    LOG_DEBUG
 /*******************/
-
+const char *chars[] = {
+  "true",
+  "false",
+  NULL,
+};
+const bool bools[] = {
+  true,
+  false,
+  NULL,
+};
 /*******************/
 module(module2) * module2;
-
-
 /*******************/
 
 
@@ -27,37 +33,27 @@ void pre(void) {
 
 
 /*******************/
-const bool *bools = {
-  true,
-  false,
-  NULL,
-};
-
-
-/*******************/
 void test(void) {
-  log_debug("module2:%d", module2);
-  log_debug("module2->enabled:%d", module2->enabled);
-  log_debug("module2->state:%d", module2->state);
-  log_debug("module2->ok:%d", module2->ok);
-  log_debug("module2->function:%d", module2->function());
-  log_debug("module2->enable():%d", module2->enable());
-
-  char *bs = "UNKNOWN"; char *bs0 = "UNNKOWN"; char *bs1 = "UNKNOWN";
-  bool b = true, b0 = true, b1 = false;
+  char *s0 = "true", *s1 = "false", *bs0, *bs1;
+  bool sb0, sb1, b0 = bools[0], b1 = bools[1], ib0, ib1;
 
   bs0 = module2->bool_to_string(b0);
   bs1 = module2->bool_to_string(b1);
+
   log_error("module2->bool_to_string(%d):%s", b0, bs0);
   log_error("module2->bool_to_string(%d):%s", b1, bs1);
 
-//  bool b0 = module2->string_to_bool();
-//  log_debug("module2->string_to_bool(%s):%d", bs, b0);
+  sb0 = module2->string_to_bool(s0);
+  sb1 = module2->string_to_bool(s1);
 
-//  log_debug("module2->bool_to_string(%d):%d", bools[0], module2->bool_to_string(bools[0]));
-
-  log_debug("module2->state:%d", module2->state);
-  log_debug("module2->enabled:%d", module2->enabled);
+  log_debug("module2->string_to_bool(%s):%d", s0, sb0);
+  log_debug("module2->string_to_bool(%s):%d", s1, sb1);
+/*
+ * ib0 = module2->is_bool(s0);
+ * ib1 = module2->is_bool(s1);
+ * log_debug("module2->is_bool(%s):%d", s0, ib0);
+ * log_debug("module2->is_bool(%s):%d", s1, ib1);
+ */
 }
 
 
@@ -66,7 +62,7 @@ void test(void) {
 
 /*******************/
 void exec(void){
-  log_info("EXEC>");
+  log_info("bool exec>");
 }
 
 
@@ -75,6 +71,7 @@ void exec(void){
 
 /*******************/
 void post(void) {
+  log_info("bool unload>");
   clib_module_free(module2);
 }
 
@@ -82,11 +79,16 @@ void post(void) {
 /*******************/
 
 
-int main(void) {
+void module_lifecycle(){
   pre();
   test();
   exec();
   post();
+}
+
+
+int main(void) {
+  module_lifecycle();
   return(0);
 }
 /*******************/
