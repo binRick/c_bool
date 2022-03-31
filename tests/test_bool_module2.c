@@ -3,11 +3,11 @@
 #define MODULE_EXEC_ENABLED    false
 #define MODULE_LOG_LEVEL       LOG_INFO
 /*******************/
-#include "include/module.h"
+//#include "include/module.h"
 /*******************/
-#include "log/log.c"
+#include "src/deps.c"
 /*******************/
-#include "src/bool_module.c"
+//#include "src/bool_module.c"
 /*******************/
 
 
@@ -43,6 +43,8 @@ void module_lifecycle(){
 int main(void) {
   init();
   module_lifecycle();
+  dbg(2134, % d);
+
   return(0);
 }
 /*******************/
